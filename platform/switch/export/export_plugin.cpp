@@ -239,6 +239,9 @@ bool EditorExportPlatformSwitch::has_valid_project_configuration(const Ref<Edito
 
 	if (p_preset->get("texture_format/etc2_astc") && !ResourceImporterTextureSettings::should_import_etc2_astc()) {
 		valid = false;
+		if (EditorNode::is_cmdline_mode()) {
+			err += TTR("ETC2/ASTC texture compression is required for Switch export. Enable it in the Project Settings (Rendering > Textures > VRAM Compression > Import ETC2 ASTC).") + "\n";
+		}
 	}
 
 	if (!err.is_empty()) {
