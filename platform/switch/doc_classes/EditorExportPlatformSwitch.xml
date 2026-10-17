@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="EditorExportPlatformSwitch" inherits="EditorExportPlatform" api_type="editor" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
+	<brief_description>
+		Exporter for Nintendo Switch homebrew (NRO).
+	</brief_description>
+	<description>
+		Exports the project as a homebrew [code].nro[/code] that runs from the homebrew menu. Export templates are built with devkitPro's devkitA64 and libnx ([code]scons platform=switch[/code]). Only the Compatibility renderer is supported.
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="application/author" type="String" setter="" getter="">
+			Author shown in the homebrew menu.
+		</member>
+		<member name="application/icon" type="String" setter="" getter="">
+			Icon shown in the homebrew menu. Converted to a 256×256 JPEG. If empty, the project icon is used.
+		</member>
+		<member name="application/title" type="String" setter="" getter="">
+			Title shown in the homebrew menu. If empty, the project name is used.
+		</member>
+		<member name="application/version" type="String" setter="" getter="">
+			Version shown in the homebrew menu. If empty, [member ProjectSettings.application/config/version] is used.
+		</member>
+		<member name="binary_format/embed_pck" type="bool" setter="" getter="">
+			If [code]true[/code], project resources are appended to the [code].nro[/code], producing a single file. Otherwise a [code].pck[/code] with the same name is written next to it.
+		</member>
+		<member name="custom_template/debug" type="String" setter="" getter="">
+			Path to a custom [code].nro[/code] template to use for debug exports.
+		</member>
+		<member name="custom_template/release" type="String" setter="" getter="">
+			Path to a custom [code].nro[/code] template to use for release exports.
+		</member>
+		<member name="texture_format/etc2_astc" type="bool" setter="" getter="">
+			If [code]true[/code], also exports ETC2/ASTC compressed textures. S3TC/BPTC textures are always exported, as the console supports them.
+		</member>
+	</members>
+</class>

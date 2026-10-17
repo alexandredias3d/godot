@@ -1,0 +1,43 @@
+#!/usr/bin/env python
+from misc.utility.scons_hints import *
+
+import os
+
+Import("env")
+
+import version
+
+switch_files = [
+    "godot_switch.cpp",
+    "os_switch.cpp",
+    "display_server_switch.cpp",
+    "joypad_switch.cpp",
+    "audio_driver_switch.cpp",
+    "gl_manager_switch_egl.cpp",
+    "switch_compat.cpp",
+]
+
+prog = env.add_program("#bin/godot", switch_files)
+
+# Package the ELF into a homebrew NRO (icon + NACP metadata + romfs with the applet splash).
+dkp_tools = os.path.join(env["ENV"]["DEVKITPRO"], "tools", "bin")
+version_str = "{}.{}.{}-{}".format(version.major, version.minor, version.patch, version.status)
+
+nacp = env.Command(
+    "#bin/godot.switch.nacp",
+    None,
+    '{} --create "Godot Engine" "Godot Engine contributors" "{}" $TARGET'.format(
+        os.path.join(dkp_tools, "nacptool"), version_str
+    ),
+)
+
+nro_target = prog[0].abspath[: -len(".elf")] + ".nro"
+nro = env.Command(
+    nro_target,
+    [prog, nacp],
+    "{} ${{SOURCES[0]}} $TARGET --icon=platform/switch/icon.jpg --nacp=${{SOURCES[1]}} --romfsdir=platform/switch/romfs".format(
+        os.path.join(dkp_tools, "elf2nro")
+    ),
+)
+env.Depends(nro, env.Glob("romfs/*"))
+env.Default(nro)

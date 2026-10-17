@@ -582,12 +582,14 @@ Dictionary OS_Unix::get_memory_info() const {
 	}
 #endif
 
+#ifndef HORIZON_ENABLED // newlib has no getrlimit().
 	rlimit stackinfo = {};
 	getrlimit(RLIMIT_STACK, &stackinfo);
 
 	if (stackinfo.rlim_cur != 0) {
 		meminfo["stack"] = (int64_t)stackinfo.rlim_cur;
 	}
+#endif
 
 	return meminfo;
 }

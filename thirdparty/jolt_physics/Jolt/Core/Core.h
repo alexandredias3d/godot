@@ -83,7 +83,8 @@
 	#define JPH_PLATFORM_ANDROID
 #elif defined(__linux__)
 	#define JPH_PLATFORM_LINUX
-#elif defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__NetBSD__)
+#elif defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__NetBSD__) || defined(__SWITCH__)
+	// Horizon homebrew (newlib + libnx pthreads) behaves like a BSD here.
 	#define JPH_PLATFORM_BSD
 #elif defined(__APPLE__)
 	#include <TargetConditionals.h>

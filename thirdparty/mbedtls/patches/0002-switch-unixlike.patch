@@ -1,0 +1,25 @@
+diff --git a/thirdparty/mbedtls/library/common.h b/thirdparty/mbedtls/library/common.h
+index 1f59b32..95db1ed 100644
+--- a/thirdparty/mbedtls/library/common.h
++++ b/thirdparty/mbedtls/library/common.h
+@@ -40,6 +40,7 @@
+     (defined(__APPLE__) && defined(__MACH__)) ||                  \
+     defined(__HAIKU__) ||                                         \
+     defined(__midipix__) ||                                       \
++    defined(__SWITCH__) ||                                        \
+     /* Add other Unix-like platform indicators here ^^^^ */ 0
+ /* defined(MBEDTLS_PLATFORM_IS_UNIXLIKE) ==> we can include <unistd.h> */
+ #define MBEDTLS_PLATFORM_IS_UNIXLIKE
+diff --git a/thirdparty/mbedtls/library/platform_util.c b/thirdparty/mbedtls/library/platform_util.c
+index 1cab42f..12b4930 100644
+--- a/thirdparty/mbedtls/library/platform_util.c
++++ b/thirdparty/mbedtls/library/platform_util.c
+@@ -219,7 +219,7 @@ void (*mbedtls_test_hook_test_fail)(const char *, int, const char *);
+ #include <unistd.h>
+ #endif
+ 
+-#if (defined(_POSIX_VERSION) && _POSIX_VERSION >= 199309L) || defined(__HAIKU__)
++#if (defined(_POSIX_VERSION) && _POSIX_VERSION >= 199309L) || defined(__HAIKU__) || defined(__SWITCH__)
+ mbedtls_ms_time_t mbedtls_ms_time(void)
+ {
+     int ret;

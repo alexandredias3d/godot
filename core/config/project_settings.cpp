@@ -731,6 +731,13 @@ Error ProjectSettings::_setup(const String &p_path, const String &p_main_pack, b
 		}
 #endif
 
+#ifdef HORIZON_ENABLED
+		if (!found) {
+			// Fused Switch builds ship the PCK inside the NRO's romfs.
+			found = _load_resource_pack("romfs:/game.pck", false, 0, true);
+		}
+#endif
+
 		if (!found) {
 			// Try to load data pack at the location of the executable.
 			// As mentioned above, we have two potential names to attempt.

@@ -219,7 +219,7 @@ void (*mbedtls_test_hook_test_fail)(const char *, int, const char *);
 #include <unistd.h>
 #endif
 
-#if (defined(_POSIX_VERSION) && _POSIX_VERSION >= 199309L) || defined(__HAIKU__)
+#if (defined(_POSIX_VERSION) && _POSIX_VERSION >= 199309L) || defined(__HAIKU__) || defined(__SWITCH__)
 mbedtls_ms_time_t mbedtls_ms_time(void)
 {
     int ret;
